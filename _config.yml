@@ -113,6 +113,8 @@ description: "Intended as a documentation theme based on Jekyll for technical wr
 # url: http://idratherbewriting.com
 # baseurl: /documentation-theme-jekyll
 
+url: http://latex-tables.com
+baseurl: /wordtools
 
 github: [metadata]
 
