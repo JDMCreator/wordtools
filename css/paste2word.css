@@ -1,0 +1,22 @@
+.field{
+	background:whitesmoke;
+	display:table;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	border-radius:3px;
+}
+.field > div{
+	display:table-row;
+}
+.field::after{
+	content:" ";
+	display:block;
+}
+.button-copy{
+	display:block;
+	margin:3px auto;
+}
+.button-copy.copied::before{
+	content:"\2713   ";
+}

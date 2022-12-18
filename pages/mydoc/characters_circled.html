@@ -1,0 +1,126 @@
+---
+title: Circled Characters
+tags: [characters]
+pdf: "Yes"
+acrobat: "Yes"
+last_updated: November 30, 2015
+keywords: shuffle, card layout, dynamic grid, doc portal, support portal
+summary: "This tool allows you to generate circled characters, or characters embedded in any shape or other character."
+permalink: characters_circled.html
+sidebar: mydoc_sidebar
+folder: mydoc
+---
+
+
+{% unless site.output == "pdf" %}
+<script src="js/jquery.shuffle.min.js"></script>
+<script src="js/jquery.ba-throttle-debounce.min.js"></script>
+{% endunless %}
+
+
+<div class="field">
+	<div class="form-group">
+	    <label for="number">Text over:</label>
+	    <input type="text" class="form-control" id="number" value="21">
+	</div>
+	<div class="form-group">
+	    <label for="under">Character under:</label>
+		<select id="under" class="form-control">
+			<option value="●">● Filled Circle</option>
+			<option value="◯">◯ Circle</option>
+			<option value="■">■ Filled Square</option>
+			<option value="□">□ Square</option>
+			<option value="▢">▢ Square with rounded corners</option>
+			<option value="▲">▲ Filled Triangle</option>
+			<option value="△">△ Triangle</option>
+		</select>
+	</div>
+	<div>
+		<label for="char">Number of character spaces to preserve:</label>
+		<input type="number" class="form-control" min=1 max=3 id="char" value="2">
+	</div>
+	<div>
+		<label for="colorover" style="display:block">Color of character over:</label>
+		<input id="colorover" class="input-color" value="auto">
+	</div>
+	<div>
+		<label for="colorunder" style="display:block">Color of character under:</label>
+		<input id="colorunder" class="input-color" value="#000000">
+	</div>
+	<center>
+		<button class="button-copy btn btn-primary">Copy</button>
+	</center>
+</div>
+
+{% include support.html %}
+
+<script src="js/paste2word.js"></script>
+<script>
+	var database = {
+		"●" : {
+			color:"white",
+			raise:0,
+			size:9
+		      },
+		"◯" : {
+			color:"black",
+			raise:0,
+			size:9
+			},
+		"■" : {
+			color:"white",
+			raise:0,
+			size:9
+		},
+		"□" : {
+			color:"black",
+			raise:0,
+			size:9
+		},
+		"▢" : {
+			color:"black",
+			raise:0.5,
+			size:8.5
+		},
+		"▲" : {
+			color:"white",
+			raise:0,
+			size:9
+		},
+		"△" : {
+			color:"black",
+			raise:0,
+			size:9
+		}
+	};
+	function generateItem(n){
+		var char = val("under");
+		var data = database[char];
+		var color = val("colorover") == "auto" ? data.color : val("colorover");
+		var code = `<span style='font-size:8.0pt;
+line-height:107%;font-family:"Times New Roman",serif;'><span
+style='mso-element:field-begin'></span></span><span lang=EN-US
+style='font-size:8.0pt;line-height:107%;font-family:"Times New Roman",serif;
+'><span style='mso-spacerun:yes'> </span>eq \\o\\ac(</span><span lang=EN-CA
+style='font-size:${data.size}pt;mso-text-raise:${data.raise}pt;color:${val("colorunder")};line-height:107%;font-family:"Yu Gothic",sans-serif;'>${char}</span><span
+lang=EN-US style='font-size:8pt;line-height:107%;font-family:"Times New Roman",serif;
+'>;</span><span lang=EN-US style='font-size:${val("char")>2?5:6}.0pt;line-height:107%;
+font-family:"Yu Gothic",sans-serif;mso-bidi-font-family:"Times New Roman";
+color:${color};position:relative;top:-1.5pt;mso-text-raise:
+1.5pt;letter-spacing:-.4pt;'>${n}</span><span lang=EN-US style='font-size:8.0pt;
+line-height:107%;font-family:"Times New Roman",serif;'>)</span>
+<span
+style='font-size:8.0pt;line-height:107%;font-family:"Times New Roman",serif;'><span style='mso-element:field-end'></span></span>`
+		return code;
+	}
+window.initCopyButton(function(){
+	return generateItem(document.querySelector("#number").value)
+});
+    $(document).ready(function() {
+        $(".input-color").colorpicker();
+    });
+</script>
+{% unless site.output == "pdf" %}
+{% include initialize_shuffle.html %}
+{% endunless %}
+

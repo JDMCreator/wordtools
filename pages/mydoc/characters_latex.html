@@ -1,0 +1,63 @@
+---
+title: Circled Characters
+tags: [characters]
+pdf: "Yes"
+acrobat: "Yes"
+last_updated: November 30, 2015
+keywords: shuffle, card layout, dynamic grid, doc portal, support portal
+summary: "This tool allows you to generate the LaTeX logo."
+permalink: characters_latex.html
+sidebar: mydoc_sidebar
+folder: mydoc
+---
+
+
+{% unless site.output == "pdf" %}
+<script src="js/jquery.shuffle.min.js"></script>
+<script src="js/jquery.ba-throttle-debounce.min.js"></script>
+{% endunless %}
+
+
+<div class="field">
+	<center>
+		<button class="button-copy btn btn-primary">Copy</button>
+	</center>
+</div>
+
+{% include support.html %}
+
+<script src="js/paste2word.js"></script>
+<script>
+window.initCopyButton(function(){
+	return `<span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif;'>L</span><!--[if supportFields]><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+'><span style='mso-element:field-begin'></span>ADVANCE
+\\u 2 \\l 4</span><![endif]--><!--[if supportFields]><span style='font-size:12.0pt;
+line-height:107%;font-family:"Times New Roman",serif;'><span style='mso-element:field-end'></span></span><![endif]--><span
+style='font-size:9.0pt;line-height:107%;font-family:"Times New Roman",serif;'>A</span><!--[if supportFields]><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+mso-fareast-font-family:Calibri;'><span style='mso-element:field-begin'></span>ADVANCE
+\\d 2 \\l 2</span><![endif]--><!--[if supportFields]><span style='font-size:12.0pt;
+line-height:107%;font-family:"Times New Roman",serif;mso-fareast-font-family:
+Calibri;'><span style='mso-element:field-end'></span></span><![endif]--><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+mso-fareast-font-family:Calibri;'>T</span><!--[if supportFields]><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+mso-fareast-font-family:Calibri;'><span style='mso-element:field-begin'></span>ADVANCE
+\\d 3 \\l 1</span><![endif]--><!--[if supportFields]><span style='font-size:12.0pt;
+line-height:107%;font-family:"Times New Roman",serif;mso-fareast-font-family:
+Calibri;'><span style='mso-element:field-end'></span></span><![endif]--><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+mso-fareast-font-family:Calibri;'>E</span><!--[if supportFields]><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;
+mso-fareast-font-family:Calibri;'><span style='mso-element:field-begin'></span>ADVANCE
+\\u 3 \\l 1</span><![endif]--><!--[if supportFields]><span style='font-size:12.0pt;
+line-height:107%;font-family:"Times New Roman",serif;'><span style='mso-element:field-end'></span></span><![endif]--><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif;'>X</span>`
+});
+</script>
+{% unless site.output == "pdf" %}
+{% include initialize_shuffle.html %}
+{% endunless %}
+
