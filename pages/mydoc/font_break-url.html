@@ -1,0 +1,97 @@
+---
+title: Circled Characters
+tags: [characters]
+pdf: "Yes"
+acrobat: "Yes"
+last_updated: November 30, 2015
+keywords: shuffle, card layout, dynamic grid, doc portal, support portal
+summary: "This tool allows you to generate circled characters, or characters embedded in any shape or other character."
+permalink: font_break-url.html
+sidebar: mydoc_sidebar
+folder: mydoc
+---
+
+
+{% unless site.output == "pdf" %}
+<script src="js/jquery.shuffle.min.js"></script>
+<script src="js/jquery.ba-throttle-debounce.min.js"></script>
+{% endunless %}
+
+
+<div class="field">
+	<div class="form-group">
+	    <label for="url">URL:</label>
+	    <input type="text" class="form-control" id="url">
+	</div>
+	<div class="form-group">
+	    <label for="method">Method:</label>
+		<select id="method" class="form-control">
+			<option value="chicago">Chicago Manual of Style</option>
+			<option value="everywhere">Everywhere</option>
+		</select>
+	</div>
+	<center>
+		<button class="button-copy btn btn-primary">Copy</button>
+	</center>
+</div>
+
+{% include support.html %}
+<script type="text/javascript" src="js/paste2word.js"></script>
+<script>
+	function generateItem(){
+		var url = val("url");
+		var method = val("method");
+		var breakurl = "";
+		var zero = "&#x200B;";
+		if(method == "everywhere"){
+			for(var i=0;i<url.length;i++){
+				if(i>0){
+					breakurl+=zero;
+				}
+				breakurl+=url[i];
+			}
+		}
+		if(method == "chicago"){
+			for(var i=0;i<url.length;i++){
+				if(i+1==url.length){
+					breakurl+=url[i];
+				}
+				else{
+					var c = url[i];
+					if(c == "/"){
+						if(url[i+1] == "/"){
+							breakurl+="//"+zero;
+							i++;
+						}
+						else{
+							breakurl+=zero+c;
+						}
+					}
+					else if(c == ":"){
+						breakurl+=c+zero;
+					}
+					else if(c == "&" || c == "="){
+						breakurl += zero+c+zero;
+					}
+					else if(c == "#" || c == "?" || c == "_" || c == "-" ||
+						c == "," || c == "." || c == "%" || c == "~"){
+						breakurl += zero+c;
+					}
+					else{
+						breakurl += c;
+					}
+				}
+			}
+		}
+		return `<a href="${url}">${breakurl}</a>`
+	}
+	window.initCopyButton({
+		html: function(){
+			return generateItem();
+		}
+	});
+</script>
+{% unless site.output == "pdf" %}
+{% include initialize_shuffle.html %}
+{% endunless %}
+

@@ -1,0 +1,81 @@
+---
+title: Circled Characters
+tags: [characters]
+pdf: "Yes"
+acrobat: "Yes"
+last_updated: November 30, 2015
+keywords: shuffle, card layout, dynamic grid, doc portal, support portal
+summary: "This tool allows you to generate circled characters, or characters embedded in any shape or other character."
+permalink: paragraph_round-corners.html
+sidebar: mydoc_sidebar
+folder: mydoc
+---
+
+
+{% unless site.output == "pdf" %}
+<script src="js/jquery.shuffle.min.js"></script>
+<script src="js/jquery.ba-throttle-debounce.min.js"></script>
+{% endunless %}
+
+
+<div class="field">
+	<div class="form-group">
+	    <label for="url">URL:</label>
+	    <input type="text" class="form-control" id="url">
+	</div>
+	<div class="form-group">
+	    <label for="method">Method:</label>
+		<select id="method" class="form-control">
+			<option value="chicago">Chicago Manual of Style</option>
+			<option value="everywhere">Everywhere</option>
+		</select>
+	</div>
+	<center>
+		<button class="button-copy btn btn-primary">Copy</button>
+	</center>
+</div>
+<canvas id="canvas"></canvas>
+{% include support.html %}
+<script type="text/javascript" src="js/paste2word.js"></script>
+<script>
+	function generateItem(){
+		var canvas = document.getElementById("canvas");
+		var context = canvas.getContext("2d");
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(0, 0, 50, 50);
+		context.globalCompositeOperation = 'destination-out';
+		context.beginPath();
+		context.arc(25, 25, 25, 0, 2 * Math.PI);
+		context.fill();
+		return {
+			topleft:cropPlusExport(canvas, 0, 0, 25, 25),
+			topright:cropPlusExport(canvas, 25, 0, 25, 25),
+			bottomleft:cropPlusExport(canvas, 0, 25, 25, 25),
+			bottomright:cropPlusExport(canvas, 25, 25, 25, 25)
+		}
+	}
+
+function cropPlusExport(img,cropX,cropY,cropWidth,cropHeight){
+  // create a temporary canvas sized to the cropped size
+  var canvas1=document.createElement('canvas');
+  var ctx1=canvas1.getContext('2d');
+  canvas1.width=cropWidth;
+  canvas1.height=cropHeight;
+  // use the extended from of drawImage to draw the
+  // cropped area to the temp canvas
+  ctx1.drawImage(img,cropX,cropY,cropWidth,cropHeight,0,0,cropWidth,cropHeight);
+  // return the .toDataURL of the temp canvas
+  return(canvas1.toDataURL());
+}
+	window.initCopyButton({
+		html:function(){
+			var url = generateItem();
+			return `
+<table style="width:100%;border-collapse:collapse;border:none;background:yellow;mso-padding-alt:0cm 0cm 0cm 0cm"><tr><td style="width:0.66cm"><img src="${url.topleft}"></td><td style="text-align:center">Header</td><td style="width:0.66cm"><img src="${url.topright}"></td></tr><tr><td colspan="3">Your Text</td></tr><tr><td style="width:0.66cm"><img src="${url.bottomleft}"></td><td style="text-align:center">Footer</td><td style="width:0.66cm"><img src="${url.bottomright}"></td></tr></table>`
+		}
+	});
+</script>
+{% unless site.output == "pdf" %}
+{% include initialize_shuffle.html %}
+{% endunless %}
+
